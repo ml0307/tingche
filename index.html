@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户界面</title>
+    <link rel="shortcut icon" href="./images/1654162217(1).jpg" type="image/x-icon">
+    <link rel="stylesheet" href="./bootstrap.min.css">
+    <link rel="stylesheet" href="index.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./art.js"></script>
+    <script src="./index.js"></script>
+    <script id="tpl-owner" type="text/html">
+        {{each $data}}
+        <tr>
+            <td style="padding-top: 19px">
+                <input type="checkbox" class="checkmin" >
+            </td>
+            <td style="padding-top: 19px">{{$value.id}}</td>
+            <td style="padding-top: 19px">{{$value.name}}</td>
+            <td style="padding-top: 19px">{{$value.home_number}}</td>
+            <td style="padding-top: 19px">{{$value.phone_number}}</td>
+            <td style="padding-top: 19px">{{$value.park_lot}}</td>
+            <td>
+                {{if $value.park_state==0}}
+                <div style="margin-left: 4px; width: 20px; height: 20px;border: 2px solid limegreen;text-align: center;padding-bottom:20px;color:limegreen">p</div>
+                <span>未停</span>
+                {{else if $value.park_state==1}}
+                <div style="margin-left: 4px; width: 20px; height: 25px;line-height: 25px;  border: 2px solid red;text-align: center;color:red">X</div>
+                <span>已停</span>
+                {{/if}}
+            </td>
+            <td style="padding-top: 19px">
+                <div style="width: 75px;height: 20px;overflow: hidden">
+                {{each $value.carlist}}
+                   <span>{{$value.license}}</span>
+                {{/each}}
+                </div>
+            </td>
+            <td>
+                {{if $value.carlist[0]}}
+                <img src="{{$value.carlist[0] | a}}" width="40px" style="margin-top: 8px">
+                {{else if $value.carlist[0]==undifend}}
+                     <div style="padding-top: 10px">穷鬼，没车</div>
+                {{/if}}
+            </td>
+            <td style="padding-top: 19px">{{$value.create_time|timestamp}}</td>
+            <td style="padding-top: 19px">{{$value.update_time|updatetime}}</td>
+            <td style="padding-top: 14px">
+                <button class="btn btn-primary btn-Update " >编辑</button>
+
+                <div class="Update_Div">
+                    <div class="Update_small">
+                        <div >
+                            <span>*</span>
+                            <span style="margin-right:21px">姓名:</span>
+                            <input type="text" class="update_name" value="{{$value.name}}">
+                        </div>
+                        <div >
+                            <span>*</span>
+                            <span style="margin-right:12px">房间号</span>
+                            <input type="text" class="update_Homenumber" value="{{$value.home_number}}">
+                        </div>
+                        <div>
+                            <span>*</span>
+                            <span style="margin-right:12px">手机号</span>
+                            <input type="text" class="update_Phonenumber" value="{{$value.phone_number}}">
+                        </div>
+                        <div >
+                            <span>*</span>
+                            <span style="margin-right:12px">车位号</span>
+                            <input type="text" class="update_Parklot" value="{{$value.park_lot}}" >
+                        </div>
+                        <div >
+                            <span>*</span>
+                            <span >车位状态</span>
+                            <input type="text" class="update_Parkstate" value="{{if $value.park_state==0}}空位{{else if $value.park_state==1}}已停{{/if}}">
+                        </div>
+                        <div class="btn_eC">
+                            <button class=" btn_Uptitle">更新</button>
+                            <button  class="btn_Exit btn_Uexit">取消</button><div>
+
+                        </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+                <button class="btn btn-danger">删除</button>
+                <button class="btn btn-primary gd">更多操作</button>
+            </td>
+        </tr>
+        {{/each}}
+    </script>
+
+</head>
+<body>
+<div class="top">
+    <div class="flex_left">
+        <div>MaLi</div>
+        <div><img src="./images/微信图片_20220602162038_12.png" alt=""></div>
+        <div><img src="./images/微信图片_20220602162038_10.png" alt="">&nbsp;系统监控</div>
+        <div><img src="./images/微信图片_20220602162038_12.png" alt="">&nbsp;系统工具</div>
+        <div><img src="./images/微信图片_20220602162038_14.png" alt="">&nbsp;MaLi官网</div>
+        <div><img src="./images/微信图片_20220602162038_05.png" alt="">&nbsp;统计报表</div>
+        <div><img src="./images/微信图片_20220602162038_07.png" alt="">&nbsp;实例演示</div>
+    </div>
+    <div class="flex_right">
+        <div><img src="./images/微信图片_20220602162038_03_06.png" alt="">&nbsp;文档</div>
+        <div><img src="./images/微信图片_20220602162038_03_08.png" alt="">&nbsp;锁屏</div>
+        <div><img src="./images/微信图片_20220602162038_03_10.png" alt="">&nbsp;全屏</div>
+        <div><img src="./images/微信图片_20220602162038_03_04.png" alt="" style="width: 20px">&nbsp;MaLi</div>
+    </div>
+
+</div>
+
+<div class="middle">
+    <div style="display: flex;padding-top: 20px">
+        <div style="padding-left: 40px">姓名<input class="plk" type="text" placeholder="请输入姓名"style="padding-left: 10px;font-size: 16px;margin-left: 20px"> </div>
+        <div style="padding-left: 40px">房间号<input class="plk" type="text" placeholder="请输入房间号"style="padding-left: 10px;font-size: 16px;margin-left: 20px"> </div>
+        <div style="padding-left: 40px">手机号<input class="plk" type="text" placeholder="请输入手机号"style="padding-left: 10px;font-size: 16px;margin-left: 20px" ></div>
+        <div style="padding-left: 40px">车辆统计<input class="plk" type="text" placeholder="请输入（有车/无车）"style="padding-left: 10px;font-size: 16px;margin-left: 20px"></div>
+        <button class="btn btn-primary Addto" style="margin-left: 40px">添加</button>
+    </div>
+    <div class="table_">
+        <table class="owner table table-hover">
+            <thead>
+            <tr>
+                <th>
+                    <input type="checkbox" class="allcheck">
+                    <span>全选</span>
+                </th>
+                <th>编号</th>
+                <th>姓名</th>
+                <th>房间号</th>
+                <th>电话号</th>
+                <th>车位</th>
+                <th>状态</th>
+                <th>车牌号</th>
+                <th>车辆外观</th>
+                <th>创建时间</th>
+                <th>上次变更时间</th>
+                <th>更多操作</th>
+                <th>序号</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+
+        </table>
+
+    </div>
+       <button class="btn btn-primary  black_" >上一页</button>
+       <div class="yeshu"></div>
+       <button class="btn btn-primary next_" >下一页</button>
+
+
+
+</div>
+
+
+
+
+<div class="more_background">
+    <div class="backHome">
+        <div class="guanbi">x</div>
+       <h1>个人信息</h1>
+        <p>您共有<span id="alche">xxx</span>辆车</p>
+        <div style="display: flex;width: 90%;margin: 0 auto">
+            <div class="call_che">车牌号
+                <div class="call_che_">
+
+                </div>
+
+            </div>
+            <div class="img_che">车辆外观
+                <div class="che_img">
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class="che_zeng">
+            新增车辆
+            <div style="display: flex;width:80%;margin: 10px auto">
+                <div class="sc_img">
+                    <span style="color: red;">*</span>请上传车辆照片
+                    <div style="position: relative;height: 150px">
+                        <div class="iunop" >+</div>
+                        <input type="file"class="iunpi"id="iunpi1" >
+                    </div>
+                    <div class="cl_img"></div>
+                </div>
+                <div class="sc_call">
+                    <span style="color: red">*</span> 请添加车牌号:
+                    <input class="iupt" type="text" >
+                    <input class="iupt" type="text" >
+                    <input class="iupt" type="text" >
+                    <input class="iupt" type="text" >
+                    <input class="iupt" type="text" >
+                    <input class="iupt" type="text" >
+                    <input class="iupt" type="text" >
+                    <div class="dkl" style="background-color:transparent;position: absolute; top: 0;left:0px;width: 100%;height: 30px"></div>
+                    <div class="keyBoard">
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+       <div class="conter_che">
+           <div class="post_che">新增车辆</div>
+           <div class="delete_che">移除车辆</div>
+       </div>
+    </div>
+</div>
+
+
+
+
+
+</body>
+
+</html>
+

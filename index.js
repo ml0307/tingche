@@ -50,32 +50,46 @@ $(function (){
         return newData
     }
     $.get("http://1.14.68.137:8000/api/v0/owner/",function (res){
-        $('.next_').click(function (){
-            console.log(111)
-            $.get(res.next,function (res){
-                console.log(res)
-                let result =template("tpl-owner",res.results)
+        var allpage = Math.ceil(res.count / 10)
+        var page = 1
+        $('.dqy').html(page)
+        $('.zy').html(allpage)
+        $('.black_').click(function () {
+            if (page == 1) {
+                page = 1
+            } else {
+                page--;
+            }
+            $('.dqy').html(page)
+            $.get("http://1.14.68.137:8000/api/v0/owner/?page=" + page, function (res) {
+                let result = template("tpl-owner", res.results)
                 $('tbody').html(result)
-                for (var i =0 ; i<res.results.length+1; i++){
-                    // $('tbody').html(result).find('tr').eq(vl).append('<td>1</td>')
-                    $('tr').eq(i).find('td').eq(12).html(i).css({paddingTop:'19px'})
+                allpage = Math.ceil(res.count / 10)
+                $('.zy').html(allpage)
+                for (var i = 0; i < res.results.length + 1; i++) {
+                    $('tr').eq(i).find('td').eq(12).html(i).css({ paddingTop: '19px' })
                     $('tbody').find('tr').eq(i).append('<td></td>')
                 }
-                $('.black_').click(function (){
-                    $.get(res.previous,function (res){
-                        let result =template("tpl-owner",res.results)
-                        $('tbody').html(result)
-                        for (var i =0 ; i<res.results.length+1; i++){
-                            // $('tbody').html(result).find('tr').eq(vl).append('<td>1</td>')
-                            $('tr').eq(i).find('td').eq(12).html(i).css({paddingTop:'19px'})
-                            $('tbody').find('tr').eq(i).append('<td></td>')
-                        }
-                        man()
-                    })
-
-                })
                 man()
-
+            })
+        })
+        $('.next_').click(function () {
+            if (page == allpage) {
+                page = allpage
+            } else {
+                page++;
+            }
+            $('.dqy').html(page)
+            $.get("http://1.14.68.137:8000/api/v0/owner/?page=" + page, function (res) {
+                let result = template("tpl-owner", res.results)
+                $('tbody').html(result)
+                allpage = Math.ceil(res.count / 10)
+                $('.zy').html(allpage)
+                for (var i = 0; i < res.results.length + 1; i++) {
+                    $('tr').eq(i).find('td').eq(12).html(i).css({paddingTop: '19px'})
+                    $('tbody').find('tr').eq(i).append('<td></td>')
+                }
+                man()
             })
         })
 
@@ -133,10 +147,7 @@ function man(){
                 location.reload()
             })
         })
-        console.log(res)
-        // let td = res.next
-        // td = td.substring(td.indexOf('?')+1)
-        // console.log(td)
+
         $(".btn-Update").each(function (index, item) {
             item.dataset.index = res.results[index].id;
 
@@ -219,7 +230,6 @@ function man(){
                             return;
                         }
                     })
-                    // console.log(npl)
 
                     let iup_=$('<input type="checkbox">').addClass("ln")
                     $('.call_che_').find('div').append(iup_)

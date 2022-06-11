@@ -477,13 +477,13 @@ $(function (){
            })
         })
     $('.dkl').click(function(){
-        let  opt1 = $('.sc_call').find('input')
-        for (var i = 0; i<opt1.length;i++){
-            if(!opt1[i].value){
-                $(opt1[i]).focus()
-                return;
-            }
-        }
+        console.log("nihao")
+        alert("你号")
+        let a =[0,10]
+        b=a
+        b[0]=30
+        alert(a)
+
     })
 
 

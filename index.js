@@ -139,7 +139,6 @@ function man(){
         $(".btn-Update").each(function (index, item) {
             item.dataset.index = res.results[index].id;
 
-
             $(item).click(function () {
                 let UpdateID = this.dataset.index
                 console.log(1111)
@@ -193,6 +192,7 @@ function man(){
 
         $(".gd").click(function (){
             let id_=$(this).parent().siblings().eq(1).html()
+            let npl= []
             res.results.forEach(function (item,index){
                 $('.more_background').show()
                 if(id_==item.id){
@@ -202,6 +202,8 @@ function man(){
                     item.carlist.forEach(function (item,index){
                         let chebox = $('<div></div>').css({width:"200px",height:'40px',position:'relative',margin:"0 auto",paddingTop:'20px'})
                         chebox.html(item.license)
+                        // console.log(item.id)
+                        npl.push(item.id)
                         let ml= $('.call_che_').append(chebox)
                         $('#alche').html(ml[0].children.length)
                         if(item.car_img!=null){
@@ -216,8 +218,37 @@ function man(){
                             return;
                         }
                     })
+                    // console.log(npl)
+
                     let iup_=$('<input type="checkbox">').addClass("ln")
                     $('.call_che_').find('div').append(iup_)
+                    let loopp=document.querySelectorAll('.ln')
+                    for(let i= 0;i<loopp.length;i++){
+                        loopp[i].dataset.index=npl[i]
+                        console.log(npl[i])
+                        $('.delete_che').click(function (){
+                            if(loopp[i].checked){
+                                let id = loopp[i].dataset.index
+                                console.log(id)
+                                $.ajax({
+                                    type: 'DELETE',
+                                    url: "http://1.14.68.137:8000/api/v0/license/" + id + "/",
+                                    success(res) {
+                                        console.log(res, '删除成功11')
+                                        location.reload()
+                                    }
+                                })
+                            }
+                        })
+
+                    }
+
+                        console.log(loopp)
+                        // if(loopp.is(':checked')){
+
+                        // }
+
+
 
 
                     $('.guanbi').click(function (){
@@ -264,11 +295,7 @@ function man(){
 
             })
 
-            $('.delete_che').click(function (){
-                console.log(1111)
-                console.log($('.call_che_').find('div').find('input').eq(0).is(':checked'))
 
-            })
 
 
 

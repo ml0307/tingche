@@ -117,15 +117,16 @@ function man(){
             let park_state1 = ''
             $('.plk').eq(0).val()
             console.log($('.plk').eq(2).val())
-            if ($('.plk').eq(3).val() == '有车') {
+            if ($('.plk').eq(4).val() == '有车') {
                 park_state1 = '1'
-            } else if ($('.plk').eq(3).val() == '无车') {
+            } else if ($('.plk').eq(4).val() == '无车') {
                 park_state1 = '0'
             }
             $.post("http://1.14.68.137:8000/api/v0/owner/", {
                 name: $('.plk').eq(0).val(),
                 home_number: $('.plk').eq(1).val(),
                 phone_number: $('.plk').eq(2).val(),
+                park_lot:$('.plk').eq(3).val(),
                 park_state: park_state1
             }, function (res) {
                 console.log(res)

@@ -478,10 +478,14 @@ $(function (){
         })
     $('.dkl').click(function(){
         let  opt1 = $('.sc_call').find('input')
+        let malei = 'this is big sad bee'
         for (var i = 0; i<opt1.length;i++){
-            if(!opt1[i].value){
-                $(opt1[i]).focus()
-                return;
+            if(0){
+                console.log(malie);
+                console.log(0000000);
+            }else{
+                console.log(malie);
+                console.log(111111);
             }
         }
     })
